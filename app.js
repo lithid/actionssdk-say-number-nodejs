@@ -40,16 +40,19 @@ app.post('/', function (request, response) {
 
   function rawInput (assistant) {
     console.log('rawInput');
+    var inputPrompt;
     if (assistant.getRawInput() === 'bye') {
       assistant.tell('Goodbye!');
     } else if (assistant.getRawInput() == 'locate my phone') {
-      assistant.tell('Locating your phone right now');
+      inputPrompt = assistant.buildInputPrompt(true, '<speak>Locating your phone right now</speak>',
+          ['Trying to locate', 'Locate not working', 'Issue locating']);
     } else {
-      let inputPrompt = assistant.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
+      inputPrompt = assistant.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
         assistant.getRawInput() + '</say-as></speak>',
           ['I didn\'t hear a number', 'If you\'re still there, what\'s the number?', 'What is the number?']);
-      assistant.ask(inputPrompt);
     }
+
+    assistant.ask(inputPrompt);
   }
 
   let actionMap = new Map();
