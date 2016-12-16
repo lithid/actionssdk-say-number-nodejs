@@ -42,6 +42,8 @@ app.post('/', function (request, response) {
     console.log('rawInput');
     if (assistant.getRawInput() === 'bye') {
       assistant.tell('Goodbye!');
+    } else if (assistant.getRawInput() == 'locate my phone') {
+      assistant.tell('Locating your phone right now');
     } else {
       let inputPrompt = assistant.buildInputPrompt(true, '<speak>You said, <say-as interpret-as="ordinal">' +
         assistant.getRawInput() + '</say-as></speak>',
